@@ -1,4 +1,4 @@
-HARDCORE = False
+HARDCORE = True
 ATTEMPTS = 10
 
 import word_elimination as we
@@ -15,7 +15,10 @@ all_words = possible_words
 
 for tries in range(ATTEMPTS):
     print("Attempt "+str(tries+1)+"/6 - Here are some optimal guesses (" + str(len(possible_words)) + " Options Remaining):")
-    print(odds.find_best_guesses(all_words, possible_words))
+
+    best_guesses, worst_guesses = odds.find_best_guesses(all_words, possible_words)
+    print(best_guesses)
+    print(worst_guesses)
 
     guess = make_guess(all_words)
     if guess == -1:
@@ -24,6 +27,7 @@ for tries in range(ATTEMPTS):
     information = get_information()
     if information == -1:
         break
+
     if information == 'ggggg':
         print("Congrats! You Did it")
         break

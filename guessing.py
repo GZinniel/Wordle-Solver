@@ -67,3 +67,4 @@ def determine_language():
         language = 'german'
 
     return language
+

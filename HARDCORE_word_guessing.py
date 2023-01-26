@@ -123,10 +123,12 @@ def average_score(points, length):
 
 def get_optimal_guesses(word_dict, BEST=6, WORST=0, round_to_int = True):
     supplied_guesses = {}
+    worst_guesses = {}
+    best_guesses  = {}
 
     # Get a prescribed number of best guesses
-    supplied_guesses['BEST'] = ':)'
-    while len(supplied_guesses) < BEST + 1:
+    best_guesses['BEST'] = ':)'
+    while len(best_guesses) < BEST + 1:
         # If no options left, can't add any more guesses
         if len(word_dict) == 0:
             break
@@ -136,37 +138,24 @@ def get_optimal_guesses(word_dict, BEST=6, WORST=0, round_to_int = True):
 
         # Only add to DICT if it isn't 0 (pointless if it is 0)
         if word_dict[best_guess] > 0:
-            supplied_guesses[best_guess] = word_dict[best_guess]
+            best_guesses[best_guess] = round(word_dict[best_guess])
         del word_dict[best_guess]
 
     # Get a prescribed number of worst guesses as well (just for fun)
-    worst_guess_list = []
-    if WORST > 0:
-        supplied_guesses['WORST'] = ':('
-    while len(worst_guess_list) < WORST:
-        # If no options left, can't add any more guesses
+    while len(worst_guesses) < WORST + 1:
+        # If no options are left, can't add anymore guesses
         if len(word_dict) == 0:
             break
 
-        # Pull the worst guess left
-        worst_guess = min(word_dict, key=word_dict.get)
+    # Pull the worst guess
+    worst_guess = min(word_dict, key=word_dict.get)
 
-        # Only add to DICT if it isn't 0 (pointless if it is 0)
-        if word_dict[worst_guess] > 0:
-            worst_guess_list.append((worst_guess, word_dict[worst_guess]))
-        del word_dict[worst_guess]
+    # Only add to DICT if it isn't 0 (pointless if it is 0)
+    if word_dict[worst_guess] > 0:
+        worst_guesses[worst_guess] = round(word_dict[worst_guess])
+    del word_dict[worst_guess]
 
-    # Now add all the worst guesses into DICT
-        for guesses in reversed(worst_guess_list):
-            supplied_guesses[guesses[0]] = guesses[1]
-
-    # Afterwards, we round them to a whole number, so it is easier to read
-    if round_to_int:
-        for guess in supplied_guesses:
-            if type(supplied_guesses[guess]) == float:
-                supplied_guesses[guess] = round(supplied_guesses[guess])
-
-    return supplied_guesses
+    return best_guesses, worst_guesses
 
 
 def find_best_guesses(all_words, possible_words):
@@ -202,14 +191,17 @@ def find_best_guesses(all_words, possible_words):
                 word_dict[word] = word_dict[word] * (1 + 1/len(possible_words))
 
     #Print out all remaining word options as well as their "score"
-    """
+
     others = {}
-    for word in possible_words:
-        others[word] = round(word_dict[word])
-    print(others)
-    """
+    if len(possible_words) <= 40:
+        print("All Possible")
+        for word in possible_words:
+            others[word] = round(word_dict[word])
+        print(others)
+        print("Best Guesses")
 
-    optimal_guesses = get_optimal_guesses(word_dict, BEST=3, WORST=3)
 
-    return optimal_guesses
+    best_guesses, worst_guesses = get_optimal_guesses(word_dict, BEST=3, WORST=3)
+
+    return best_guesses, worst_guesses
 

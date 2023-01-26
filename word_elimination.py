@@ -25,30 +25,52 @@ def regular_removal(words, guess, information, indices, letter):
 
 
 def remove_w(incorrect, words):
+
+    words = list(filter(lambda word: incorrect not in word, words))
+    """
     for word in words:
         if incorrect in word:
-            words = words[words != word]
+            words.remove(word)
+    """
     return words
 
 
 def remove_g(i, correct, words):
+
+    words = list(filter(lambda word: correct == word[i], words))
+
+    """
     for word in words:
         if word[i] != correct:
-            words = words[words != word]
+            words.remove(word)
+    """
+
     return words
 
 
 def remove_y(i, correct, words):
+
+    words = list(filter(lambda word: correct!=word[i] and correct in word, words))
+
+    """
     for word in words:
         if correct not in word or word[i] == correct:
-            words = words[words != word]
+            words.remove(word)
+    """
+
     return words
 
 
 def remove_duplicate_letters(letter, amount, words):
+
+    words = list(filter(lambda word: amount > word.count(letter), words))
+
+    """
     for word in words:
         if word.count(letter) > amount:
-            words = words[words != word]
+            words.remove(word)
+    """
+
     return words
 
 
@@ -73,5 +95,9 @@ def word_cull(guess, information, words):
                     words = remove_g(indices[i], letter, words)
                 if info == 'y':
                     words, remove_y(indices[i], letter, words)
+
+    print("\n\n\n")
+    print(words)
+    print("\n\n\n")
 
     return words
