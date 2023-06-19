@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def make_guess(words):
-    print("Submit your guess:")
+    print("\nSubmit your guess:")
     for i in reversed(range(4)):
         print("(You have "+str(i)+" tries remaining): ")
         attempt = str(input()).lower()
@@ -15,7 +15,7 @@ def make_guess(words):
 def get_information():
     allowed = "gywGYW"
     for i in reversed(range(4)):
-        print("How correct was it?\n g = green, y = yellow, w = grey:")
+        print("\nHow correct was it?\n g = green, y = yellow, w = grey:")
         attempt = input()
         if len(attempt) == 5:
             if all(char in allowed for char in attempt):
@@ -28,19 +28,19 @@ def get_information():
 def get_words(language):
 
     if language == 'german':
-        print('Playing Wördle.de')
+        print('\nPlaying Wördle.de')
         fileloc = r'C:\Users\gregg\PycharmProjects\Wordle\word_banks\German_Word_Bank.txt'
         words = pd.read_csv(fileloc, sep=",", header=None, encoding="utf-8").to_numpy()[0]
     elif language == 'spanish':
-        print(' Playing La Palabra Del Día')
+        print('\nPlaying La Palabra Del Día')
         fileloc = r'C:\Users\gregg\PycharmProjects\Wordle\word_banks\Spanish_Word_Bank.txt'
         words = pd.read_csv(fileloc, sep=",", header=None, encoding="utf-8").to_numpy()[0]
     elif language == 'austrian':
-        print('Playing wordle.at')
+        print('\nPlaying wordle.at')
         fileloc = r'C:\Users\gregg\PycharmProjects\Wordle\word_banks\Austrian_Word_Bank.txt'
         words = pd.read_csv(fileloc, sep=',', header=None, encoding="utf-8").to_numpy()[0]
     else:
-        print('Playing wordle (NYT Edition)')
+        print('\nPlaying wordle (NYT Edition)')
         fileloc = r'C:\Users\gregg\PycharmProjects\Wordle\word_banks\English_Word_Bank.txt'
         words = pd.read_csv(fileloc, sep=",", header=None, encoding="utf-8").to_numpy()[0]
 

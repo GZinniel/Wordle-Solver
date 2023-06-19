@@ -14,7 +14,7 @@ all_words = possible_words
 
 
 for tries in range(ATTEMPTS):
-    print("Attempt "+str(tries+1)+"/6 - Here are some optimal guesses (" + str(len(possible_words)) + " Options Remaining):")
+    print("\nAttempt "+str(tries+1)+"/6 - Here are some optimal guesses (" + str(len(possible_words)) + " Options Remaining):")
 
     best_guesses, worst_guesses = odds.find_best_guesses(all_words, possible_words)
     print(best_guesses)

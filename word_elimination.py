@@ -96,8 +96,4 @@ def word_cull(guess, information, words):
                 if info == 'y':
                     words, remove_y(indices[i], letter, words)
 
-    print("\n\n\n")
-    print(words)
-    print("\n\n\n")
-
     return words

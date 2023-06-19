@@ -124,7 +124,7 @@ def find_best_guesses(_, words):
                     points.append(letter_scores[char][word_dict[word][char][0]])
                 except IndexError:
                     points.append(letter_scores[char][0])
-                    e = 7
+                    print("Wow what happened! word_guessing:127")
 
             else:
                 points.append(char_score_plur(word_dict[word][char], char, words))
@@ -140,6 +140,7 @@ def find_best_guesses(_, words):
     else:
         for guess in word_dict:
             optimal_guesses[guess] = round(word_dict[guess])
+
     """
     if len(word_dict) > 3:
         for i in range(3):

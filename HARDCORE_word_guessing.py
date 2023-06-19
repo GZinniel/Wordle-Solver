@@ -142,18 +142,19 @@ def get_optimal_guesses(word_dict, BEST=6, WORST=0, round_to_int = True):
         del word_dict[best_guess]
 
     # Get a prescribed number of worst guesses as well (just for fun)
+    worst_guesses['WORST'] = ':('
     while len(worst_guesses) < WORST + 1:
         # If no options are left, can't add anymore guesses
         if len(word_dict) == 0:
             break
 
-    # Pull the worst guess
-    worst_guess = min(word_dict, key=word_dict.get)
+        # Pull the worst guess
+        worst_guess = min(word_dict, key=word_dict.get)
 
-    # Only add to DICT if it isn't 0 (pointless if it is 0)
-    if word_dict[worst_guess] > 0:
-        worst_guesses[worst_guess] = round(word_dict[worst_guess])
-    del word_dict[worst_guess]
+        # Only add to DICT if it isn't 0 (pointless if it is 0)
+        if word_dict[worst_guess] > 0:
+            worst_guesses[worst_guess] = round(word_dict[worst_guess])
+        del word_dict[worst_guess]
 
     return best_guesses, worst_guesses
 
@@ -190,8 +191,8 @@ def find_best_guesses(all_words, possible_words):
             else:
                 word_dict[word] = word_dict[word] * (1 + 1/len(possible_words))
 
-    #Print out all remaining word options as well as their "score"
 
+    #Print out all remaining word options as well as their "score"
     others = {}
     if len(possible_words) <= 40:
         print("All Possible")
@@ -200,6 +201,7 @@ def find_best_guesses(all_words, possible_words):
         print(others)
         print("Best Guesses")
 
+    print('cheap', word_dict['cheap'])
 
     best_guesses, worst_guesses = get_optimal_guesses(word_dict, BEST=3, WORST=3)
 
